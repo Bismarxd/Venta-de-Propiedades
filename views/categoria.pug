@@ -1,0 +1,17 @@
+extends ./layout/app
+
+block contenido 
+         
+    section(class="py-5")
+        h2(class="text-center text-4xl font-extrabold pt-10 uppercase")= pagina 
+
+        //- pre= JSON.stringify(propiedades, undefined, 2)
+
+        if propiedades.length
+            div(class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-10")
+                each propiedad in propiedades 
+                    if propiedad.publicado
+                        include ./templates/card
+                    
+        else 
+            p(class="text-center font-black font-serif text-6xl mt-10 uppercase") No Hay Resultados

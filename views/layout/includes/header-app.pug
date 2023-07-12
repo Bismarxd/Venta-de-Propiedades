@@ -1,0 +1,37 @@
+header(class="bg-teal-950 p-5") 
+            div(class="container mx-auto flex justify-between items-center")
+                a(href="/") 
+                    h1(class="text-2xl text-white font-black text-center") VENTA DE 
+                        span(class="font-semibold") PROPIEDADES
+
+                nav(class="my-5 text-base md:flex md:items-center md:gap-12 font-bold text-white hidden")
+                    if !usuario
+                        a(href="/auth/registro" class="hover:text-slate-900") Crear Cuenta
+                        a(href="/auth/login" class="hover:text-slate-900") Iniciar Sesion
+                    else 
+                        h2(class="text-white text-xl font-bold") Sesión: 
+                            span(class="text-white text-2xl font-extrabold")= usuario.nombre
+                        a(href="/mis-propiedades" class="hover:text-slate-900") Ver Propiedades 
+                        form(action="/auth/cerrar-sesion" method="POST")
+                            input(type="hidden" name="_csrf" value=csrfToken)
+                            input(type="submit" class="hover:text-slate-900 bg-green-800 hover:bg-green-400 py-2 px-10 rounded-xl" value="Cerrar Sesión")     
+                        
+                        
+
+div(class="bg-green-950 py-5 hidden lg:block")    
+    div(class="container mx-auto flex justify-between")      
+        nav(class="flex gap-9 items-center")
+            a(href="/categorias/1" class="text-lg font-bold uppercase text-white") Casas
+            a(href="/categorias/2" class="text-lg font-bold uppercase text-white") Departamentos
+            a(href="/categorias/3" class="text-lg font-bold uppercase text-white") Almacenes
+            a(href="/categorias/4" class="text-lg font-bold uppercase text-white") Terrenos
+            a(href="/categorias/5" class="text-lg font-bold uppercase text-white") Cabañas
+
+        form(action="/buscador" method="POST" class="flex gap-3 items-center")
+            input(type="hidden" name="_csrf" value=csrfToken)
+            label(for="termino" class="text-sm uppercase font-bold text-white") Búsqueda
+            input(type="text" id="termino" name="termino" placeholder="Buscar Propiedades" class="p-2 rounded-xl shadow-md")
+
+            input(type="submit" class="bg-teal-950 hover:bg-teal-500 rounded-lg text-white uppercase font-bold px-1 py-2 cursor-pointer text-center" value="buscar")
+        
+        

@@ -1,0 +1,80 @@
+extends ../layout/app
+
+block styles
+    link(rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css")
+
+block contenido 
+
+    //- pre= JSON.stringify(propiedad, undefined, 2)
+
+    div(class="py-5 bg-green-500 text-white")
+        h1(id="titulo" class="text-5xl my-10 font font-extrabold text-center uppercase")= propiedad.titulo
+
+        div(class="ml-5")
+            a(href="#" class="font-bold text-xl") Categoria: 
+                span(class="font-light text-lg")= propiedad.categoria.nombre
+
+        div(class="mt-5 md:flex md:gap-4 ml-5 mr-5 md:mr-0 md:items-start")
+            div(class="md:w-3/5 bg-green-900 shadow rounded-lg")
+                img(src=`/uploads/${propiedad.imagen}`, alt="imagen de la Propiedad")
+                div(class="px-5 py-10 space-y-5")
+                    p= propiedad.descripcion
+
+                    h2(class="text-2xl leading-6 font-bold") Información de la Propiedad
+
+                    div(class="grid grid-cols-1 md:grid-cols-2 gap-4")
+                        p(class="font-bold text-base") Baños 
+                            span(class="font-light block text-lg")= propiedad .wc
+
+                        p(class="font-bold text-base") Habitaciones 
+                            span(class="font-light block text-lg")= propiedad .habitaciones
+
+                        p(class="font-bold text-base") Estacionamiento 
+                            span(class="font-light block text-lg")= propiedad .estacionamiento
+
+                        p(class="font-bold text-base") Precio 
+                            span(class="font-light block text-lg")= propiedad .precio.nombre
+
+
+            aside(class="md:w-2/5 mr-4 bg-green-900 shadow rounded-lg") 
+                h3(class="text-center py-10 leading-6 text-4xl font-bold") Ubicación
+
+                div(class="h-96" id="mapa")
+                    p(id="lat" class="hidden")= propiedad.lat
+                    p(id="lng" class="hidden")= propiedad.lng
+
+                div(class="p-5")
+                    p(class="font-bold text-sm") Dirección 
+                        span(id="calle" class="block text-lg")= propiedad.calle
+
+                    if !esVendedor
+
+                        h3(class="text-white font-extrabold text-3xl text-center my-10") Vendedor
+                        if enviado 
+                            p(class="p-2 text-center bg-green-700 text-white uppercase font-bold") Mensaje Enviado Correctamente 
+
+                             
+
+                        else if usuario 
+                            if errores 
+                                    div(class="max-w-md mx-auto my-10")
+                                        each error in errores 
+                                            p(class="bg-red-700 p-2 text-white uppercase text-xs text-center mb-1 font-bold")= error.msg
+
+                            form(method="POST") 
+                                input(type="hidden" name="_csrf" value=csrfToken)
+
+                                div(class="space-y-7")
+                                    label(for="mensaje" class="text-2xl font-extrabold") Mensaje 
+                                    textarea(id="mensaje" name="mensaje" class="w-full py-2 border border-gray-300 rounded-lg shadow-md placeholder-slate-700 text-black" placeholder="Coloca tu Mensaje Aquí")  
+                                    input(type="submit" value="Enviar Mensaje" class="bg-cyan-950 text-white font-bold uppercase text-lg w-full p-2 cursor-pointer")
+                        else 
+
+                            div(class="flex flex-col items-center justify-center gap-3")
+                                p(class="text-center") Si Deseas Contactar al Vendedor debes
+                                a(class="text-sky-950 font-extrabold text-2xl" href="/auth/registro")  Crear una Cuenta
+
+
+block scripts
+    script(src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js")
+    script(src="/js/mostrarMapa.js")

@@ -1,0 +1,14 @@
+extends ../layout/index
+
+block  contenido
+
+    div(class="py-10 text-slate-900")
+        h1(class="text-4xl my-10 font-extrabold text-center") Venta de
+            span(class="font-normal text-slate-600")  Propiedades
+        h2(class= "text-center text-3xl font-extrabold")= pagina
+
+    div(class="bg-slate-600 shadow py-8 px-4 rounded-lg max-w-md mx-auto")
+        p(class= error ? 'bg-red-500' : 'bg-green-500').py-2.px-5.rounded-lg.w-full.font-bold.text-center.uppercase.text-white= mensaje 
+
+        if !error
+            a(href="/auth/login" class="text-center font-bold text-sm text-white uppercase mt-10 block") Iniciar Sesión

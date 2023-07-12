@@ -1,0 +1,16 @@
+header(class="bg-teal-950 p-5") 
+            div(class="container mx-auto flex justify-between items-center")
+                a(href="/") 
+                    h1(class="text-2xl text-white font-black text-center") VENTA DE 
+                        span(class="font-semibold") PROPIEDADES
+
+                
+                nav(class="my-5 text-base md:flex md:items-center md:gap-6 font-bold text-white ")
+                    h2(class="text-white text-xl font-bold") Sesión: 
+                            span(class="text-white text-2xl font-extrabold")= usuario.nombre
+                    a(href="/mis-propiedades" class="hover:text-slate-900") Propiedades 
+                    //- a(href="" class="hover:text-slate-900") Perfil 
+
+                    form(action="/auth/cerrar-sesion" method="POST")
+                        input(type="hidden" name="_csrf" value=csrfToken)
+                        input(type="submit" class="hover:text-slate-900 bg-green-800 hover:bg-green-400 py-2 px-10 rounded-xl" value="Cerrar Sesión") 
